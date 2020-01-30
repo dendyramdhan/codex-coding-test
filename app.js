@@ -6,7 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const chalk = require('chalk');
-const jwt = require('./_helpers/jwt');
+const jwt = require('./_helpers').jwt;
 const errorHandler = require('./_helpers').errorHandler;
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,17 +18,9 @@ app.use(logger('dev'));
 app.use(jwt());
 
 const userRouter = require('./_routes').user;
-const hakaksesRouter = require('./_routes').hakakses;
-const matauangRouter = require('./_routes').matauang;
-const customerRouter = require('./_routes').customer;
-const penawaranRouter = require('./_routes').penawaran;
 
 // api routes
 app.use(`/api/v${process.env.API_VERSION}/users`, userRouter);
-app.use(`/api/v${process.env.API_VERSION}/hak-akses`, hakaksesRouter);
-app.use(`/api/v${process.env.API_VERSION}/mata-uang`, matauangRouter);
-app.use(`/api/v${process.env.API_VERSION}/customer`, customerRouter);
-app.use(`/api/v${process.env.API_VERSION}/penawaran`, penawaranRouter);
 
 // global error handler
 app.use(errorHandler);
